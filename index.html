@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Bus Boss Control</title>
+
+        <meta name="theme-color" content="#121214">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="icon" type="image/png" href="icon.png">
+        <link rel="apple-touch-icon" href="icon.png">
+
+        <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Bus%20Boss%20Control%22%2C%22short_name%22%3A%22BusBoss%22%2C%22start_url%22%3A%22%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23121214%22%2C%22theme_color%22%3A%22%23121214%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22icon.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="global-header">
+            <div id="streakDisplay">&#128293; Serie: 0 Tage</div>
+            <div id="rankDisplay">&#127942; Rang: Bus-Anfänger</div>
+        </header>
+
+        <main class="scene" id="swipeArea">
+            <div class="cube" id="appCube">
+                <section class="cube-face face-hinweg">
+                   <div class="card-header">
+                       <h2>Missions-Start: Hinweg</h2>
+                       <span class="time-badge">06:25 Uhr</span>
+                   </div>
+
+                   <div class="timer-section">
+                       <div class="timer-label">FAHRZEIT</div>
+                       <div class="timer-display" id="timerDisplayH">00:00</div>
+                       <button class="btn btn-start" id="timerBtnH" onclick="toggleFahrt('Hinweg')">Fahrt starten</button>
+                   </div>
+
+                   <div class="tracker-inputs" id="inputsH">
+                       <div class="boss-health-bar">
+                       <div class="health-fill" id="bossHealthH" style="width: 100%"></div>
+                   </div>
+                   <div class="counter-text" id="encounterTextH">Boss-HP: 100% (18/18 Stationen)</div>
+
+                   <div class="input-row">
+                       <div class="input-group">
+                           <label for="passagierInputH">Fahrgäste (Gegner)</label>
+                           <input type="number" id="passagierInputH" min="0" max="50" placeholder="Anzahl">
+                       </div>
+                       <div class="input-group">
+                           <label for="stressInputH">Stress-Level (0/10):</label>
+                           <select id="stressInputH">
+                               <option value="0">0 - Tiefenentspannt</option>
+                               <option value="2">2 - Leicht unruhig</option>
+                               <option value="4">4 - Kloßgefühl droht</option>
+                               <option value="6">6 - Symptome aktiv</option>
+                               <option value="8">8 - Starke Panik</option>
+                               <option value="10">10 - Boss Wut</option>
+                           </select>
+                       </div>
+                   </div>
+
+                   <button class="btn btn-action" onclick="erfasseHaltestelle('Hinweg')">Station geschafft!</button>
+               </div>
+            </section>
+
+            <section class="cube-face face-rueckweg">
+                <div class="card-header">
+                    <h2>Missions-Start: Rückweg</h2>
+                    <span class="time-badge">15:55 Uhr</span>
+                </div>
+                
+                <div class="time-section">
+                    <div class="time-label">FAHRTZEIT</div>
+                    <div class="timer-display" id="timerDisplayR">00:00</div>
+                    <button class="btn btn-start" id="timerBtnR" onclick="toggleFahrt('Rückweg')">Fahrt starten</button>
+                </div>
+
+                <div class="tracker-inputs" id="inputsR">
+                    <div class="boss-health-bar">
+                        <div class="health-fill" id="bossHealthR" style="width: 100%"></div>
+                    </div>
+                    <div class="counter-text" id="encounterTextR">Boss-HP: 100% (18/18 Stationen)</div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="passagierInputR">Fahrgäste (Gegner)</label>
+                            <input type="number" id="passagierInputR" min="0" max="50" placeholder="Anzahl">
+                        </div>
+                        <div class="input-group">
+                            <label for="stressInputR">Stress-Level (0/10):</label>
+                            <select id="stressInputR">
+                                <option value="0">0 - Tiefenentspannt</option>
+                                <option value="2">2 - Leicht unruhig</option>
+                                <option value="4">4 - Kloßgefühl droht</option>
+                                <option value="6">6 - Symptome aktiv</option>
+                                <option value="8">8 - Starke Panik</option>
+                                <option value="10">10 - Boss Wut</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-action" onclick="erfasseHaltestelle('Rückweg')">Station geschafft!</button>
+                </div>
+            </section>
+          </div>  
+        </main>
+
+        <footer class="persistent-dashboard">
+            <h3>Sitzplatz-Ermittlung (Taktisches Feld)</h3>
+            <div class="bus-grid" id="busGrid">
+            </div>
+
+            <h3>Echtzeit-Analyse</h3>
+            <div class="canvas.container">
+                <canvas id="customChart" width="360" height="160"></canvas>
+            </div>
+        </footer>
+        <script src="app.js"></script>
+    </body>
+</html>
